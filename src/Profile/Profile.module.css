@@ -1,0 +1,27 @@
+.content img{
+    width: 100%;
+    height: 100px;
+}
+
+
+.content{
+    grid-area: c;
+    background-color: #c1eff6;
+}
+
+.photo{
+    width: 70px;
+
+}
+
+.avatar{
+    display: flex;
+    align-items: center;
+}
+
+
+.avatar img{
+    width: 70px;
+    border-radius: 50%;
+
+}
