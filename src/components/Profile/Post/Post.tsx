@@ -1,6 +1,6 @@
 import React from 'react';
 import s from '../Profile.module.css'
-import {Btn} from "../../components/Btn";
+import {Btn} from "../../Button/Btn";
 
 type PostPropsType={
     text:string

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Post} from "../Post/Post";
-import {Btn} from "../../components/Btn";
+import {Btn} from "../../Button/Btn";
 
 export const Posts = () => {
     return (
