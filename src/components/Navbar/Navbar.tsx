@@ -1,17 +1,17 @@
 import React from 'react';
 import s from './Navbar.module.css'
-import {NavLink} from "./NavLink";
+import {NavigLink} from "./NavigLink";
 
 
 
 export const Navbar = () => {
     return (
         <nav className={s.nav}>
-            <NavLink name='Profile'/>
-            <NavLink name='Messages'/>
-            <NavLink name='News'/>
-            <NavLink name='Music'/>
-            <NavLink name='Settings'/>
+            <NavigLink name='Profile' adress={'/profile'}/>
+            <NavigLink name='Messages' adress={'/dialogs'}/>
+            <NavigLink name='News' adress={'/news'}/>
+            <NavigLink name='Music' adress={'/music'}/>
+            <NavigLink name='Settings' adress={'/settings'}/>
         </nav>
     );
 };
