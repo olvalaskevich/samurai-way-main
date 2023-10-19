@@ -1,0 +1,21 @@
+.dialogs{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.name{
+    list-style: none;
+    text-decoration: none;
+}
+.name a{
+    text-decoration: none;
+    color: crimson;
+}
+
+.text{
+    list-style: none;
+}
+a.active{
+    text-decoration: none;
+    color: #a98484;
+}

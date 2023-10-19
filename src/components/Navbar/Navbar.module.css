@@ -2,5 +2,14 @@
     grid-area: n;
     background-color: beige;
     color: brown;
+    padding: 15px;
 }
 
+.link a {
+    color: indianred;
+    text-decoration: none;
+}
+
+a.active{
+    color: #6b0202;
+}
