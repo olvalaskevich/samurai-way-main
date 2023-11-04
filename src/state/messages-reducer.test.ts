@@ -13,7 +13,7 @@ test('should add new post', ()=>{
 
     }
 
-    let resultMessages=messagesReducer(messages, messagesAC('1'))
+    let resultMessages=messagesReducer(messages, messagesAC('1', 'My name is Olga'))
 
-    expect(resultMessages&&resultMessages['1'][0]).toBe('Hello')
+    expect(resultMessages['1'][2]).toBe('My name is Olga')
 })
