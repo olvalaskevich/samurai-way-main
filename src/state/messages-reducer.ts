@@ -1,18 +1,19 @@
 import {messagesType} from "../App";
 
 type ActionFilterMessagesType={
-    type:string,
+    type:'Add messages'
     id:string
+    value:string
 }
 
-export const messagesReducer=(state:messagesType, action:ActionFilterMessagesType)=>{
+export const messagesReducer=(state:messagesType, action:ActionFilterMessagesType):messagesType=>{
     switch (action.type){
-        case 'Filter messages':{
-            return {[action.id]:state[action.id]}
+        case 'Add messages':{
+            return {...state, [action.id]:[...state[action.id], action.value]}
         }
     }
 }
 
-export const messagesAC=(id:string)=>{
-    return {type:'Filter messages', id:id}
+export const messagesAC=(id:string, value:string):ActionFilterMessagesType=>{
+    return {type:'Add messages', id:id, value:value}
 }
