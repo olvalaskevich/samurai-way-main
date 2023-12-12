@@ -12,6 +12,7 @@ export const Navbar = () => {
             <NavigLink name='News' adress={'/news'}/>
             <NavigLink name='Music' adress={'/music'}/>
             <NavigLink name='Settings' adress={'/settings'}/>
+            <NavigLink name='Users' adress={'/users'}/>
         </nav>
     );
 };
