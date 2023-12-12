@@ -8,6 +8,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
+import {Users} from "./components/Users/Users";
 
 export type NameType={
     id:string,
@@ -21,17 +22,6 @@ export type messagesType={
 
 function App() {
 
-    let [allPosts, setSendMessages] = useState<Array<string>>([
-        'Alice Yo', 'Olga WOW', 'Anna HEY', 'Helen MAM', 'Ivan DAD'
-    ])
-    let [sendMessages, setSendMessage] = useState<messagesType>({
-        '1': ['Hello', 'How are you 1 ?'],
-        '2': ['Hello', 'How are you 2 ?'],
-        '3': ['Hello', 'How are you 3 ?'],
-        '4': ['Hello', 'How are you 4 ?'],
-        '5': ['Hello', 'How are you 5 ?'],
-
-    })
 
     let [names, setNames] = useState<Array<NameType>>([
         {id: '1', name: 'Alice', isActive: false},
@@ -49,19 +39,7 @@ function App() {
             activeName.isActive = true
         setNames([...unActive])
 
-        // let checkedMessages = {[id]:[...sendMessages[id]]}
-        // setSendMessage(checkedMessages)
         }
-
-    }
-
-    const onChangePost = (valueTextArea: string) => {
-        setSendMessages([valueTextArea, ...allPosts])
-
-    }
-
-    const addMessage = (value: string, id: string) => {
-        setSendMessage({...sendMessages, [id]:[...sendMessages[id], value]})
 
     }
 
@@ -73,15 +51,14 @@ function App() {
                     <Header/>
                     <Navbar/>
                     <div className='content'>
-                        <Route path={'/profile'} render={() => <Profile allPosts={allPosts}
-                                                                        onChangePost={onChangePost}/>}/>
+                        <Route path={'/profile'} render={() => <Profile/>}/>
                         <Route path={'/dialogs'} render={() => <Dialogs names={names}
-                                                                        sendMessages={sendMessages}
-                                                                        onClickChecked={onClickChecked}
-                                                                        addMessage={addMessage}/>}/>
+                                                                        onClickChecked={onClickChecked}/>}/>
                         <Route path={'/news'} render={() => <News/>}/>
                         <Route path={'/music'} render={() => <Music/>}/>
                         <Route path={'/settings'} render={() => <Settings/>}/>
+                        <Route path={'/users'} render={() => <Users/>}/>
+
                     </div>
 
                 </div>
