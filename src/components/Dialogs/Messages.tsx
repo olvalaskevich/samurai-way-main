@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from "./Dialogs.module.css";
 import {messagesType} from "../../App";
+import {useDispatch, useSelector} from "react-redux";
+import {RootStateType} from "../../state/store";
+import {messagesAC} from "../../state/messages-reducer";
 
 type MessagesPropsType={
-    messages: messagesType
+
     idN:string
-    addMessage:(value:string, id:string)=>void
 
 }
 
@@ -13,19 +15,27 @@ export const Messages = (props:MessagesPropsType) => {
 
     let [value, setValue]=useState('')
 
+    let dispatch=useDispatch()
+
+    let messages=useSelector<RootStateType,messagesType>((state)=>state.messages)
+
     const addMessageHandler=()=>{
-        props.addMessage(value, props.idN)
+        dispatch(messagesAC(props.idN,value))
         setValue('')
+    }
+
+    const onChangeHandler=(e:ChangeEvent<HTMLTextAreaElement>)=>{
+        setValue(e.currentTarget.value)
     }
 
     return (
         <>
         <ul className={s.text}>
 
-            {props.messages[props.idN].map((t)=>{
+            {messages[props.idN].map((t)=>{
                 return <li>{t}</li>
             })}
-            <textarea value={value} onChange={(e)=>{setValue(e.currentTarget.value)}}></textarea>
+            <textarea value={value} onChange={onChangeHandler}></textarea>
             <button onClick={addMessageHandler}>Send</button>
         </ul>
 
