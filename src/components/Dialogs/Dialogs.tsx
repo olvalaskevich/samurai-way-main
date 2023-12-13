@@ -1,16 +1,14 @@
 import React from 'react';
 import s from './Dialogs.module.css';
 import {Messages} from "./Messages";
-import {messagesType, NameType} from "../../App";
+import {NameType} from "../../App";
 import {NavLink} from "react-router-dom";
 
 
 
 type DialogsPropsType={
-    sendMessages:messagesType,
     names:Array<NameType>,
     onClickChecked:(id:string)=>void
-    addMessage:(value:string, id:string)=>void
 }
 
 
@@ -31,7 +29,7 @@ export const Dialogs = (props:DialogsPropsType) => {
                                         activeClassName={t.isActive? s.active:''}
                                         className={s.message}>{t.name}
                     </NavLink>
-                        {t.isActive && <Messages idN={t.id} messages={props.sendMessages} addMessage={props.addMessage} />}
+                        {t.isActive && <Messages idN={t.id}/>}
                     </li>
                 })}
 
