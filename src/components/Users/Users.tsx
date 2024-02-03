@@ -1,43 +1,68 @@
-import React from 'react';
+import React, {MouseEventHandler, useEffect, useState} from 'react';
 import u from './users.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../state/store";
-import {followAC} from "../../state/users-reducer";
+import {FollowAC, GetUsersTC} from "../../state/users-reducer";
+import '../../index.css'
 
-type addressType={
-    city:string
-    street:string
-}
 
 export type userType={
-    id:number
-    follow:boolean
-    name:string
-    description:string
-    address: addressType
+    id: number
+    name: string
+    status: string
+    photos: {
+        small:string
+        large:string
+    }
+    followed: boolean
+}
+
+export type UserStateType={
+    items:Array<userType>
+    totalCount:number
+    error:string
 }
 
 export const Users = () => {
-    let users=useSelector<RootStateType, Array<userType>>((state)=>state.users as Array<userType>)
-    let dispatch=useDispatch()
+    let dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(GetUsersTC(1))
+    }, []);
+
+    let users = useSelector<RootStateType, UserStateType>((state) => state.users as UserStateType)
+    let [activePage, setActive] = useState(1)
+    let countOfPages = users.totalCount % 10 === 0 ? users.totalCount / 10 : (users.totalCount / 10) + 1
+    let resPages = countOfPages > 10 ? 10 : countOfPages
+    let pages = []
+    for (let i = 1; i <= resPages; i++) {
+        pages.push(i)
+    }
+
 
     return (
 
 <>
-    {users.map((user)=>{
+    {pages.map((p)=>{
+        return <span className={activePage===p?'active':''} onClick={()=>{
+            setActive(p)
+            dispatch(GetUsersTC(p))
+        }}>{p}</span>})
+    }
+
+    {users.items.map((user)=>{
             return <div className={u.wrapper}>
                 <div className={u.ava}>
-                    <img src={'https://avatars.mds.yandex.net/i?id=77768f59f45a292ee29cdab856d5adc77a38e363-4231455-images-thumbs&n=13'} alt={'ava'}/>
-                    <button onClick={()=>{dispatch(followAC(user.id))}}>
-                        {user.follow? 'UNFOLLOW':'FOLLOW'}
+                    <img src={user.photos.large} alt={'ava'}/>
+                    <button onClick={()=>{dispatch(FollowAC(user.id))}}>
+                        {user.followed? 'UNFOLLOW':'FOLLOW'}
                     </button>
                 </div>
                 <div className={u.container}>
                     <div className={u.name}>
-                        <span>NAME</span>
-                        <div>DESCRIPTION</div>
+                        <span>{user.name}</span>
+                        <div>{user.status}</div>
                     </div>
-                    <span>{user.address.city+','+ user.address.street}</span>
+
                 </div>
             </div>
         })}
