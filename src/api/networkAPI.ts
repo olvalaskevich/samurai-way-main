@@ -1,5 +1,7 @@
 import axios from 'axios'
 import {userType} from "../components/Users/Users";
+import {setCheckedUserTC} from "../state/profile-reducer";
+import {UserProfileType} from "../components/UsersProfile/UsersProfile";
 
 const instance=axios.create({
     baseURL:'https://social-network.samuraijs.com/api/1.0/',
@@ -16,7 +18,10 @@ type Response={
 }
 
 export const networkAPI={
-    getUsers(n:number){
-        return instance.get<Response>(`users?count=3&page=${n}`)
+    getUsers(c:number,n:number){
+        return instance.get<Response>(`users?count=${c}&page=${n}`)
+    },
+    setCheckedUser(userId:number){
+        return instance.get<UserProfileType>(`profile/${userId}`)
     }
 }
