@@ -1,6 +1,10 @@
 .header{
     grid-area: h;
     background-color: #a98484;
+
+}
+.header span{
+    padding-left: 1050px;
 }
 
 .header img{
