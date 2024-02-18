@@ -1,44 +1,46 @@
-import {userType} from "../components/Users/Users";
+import {UserStateResponseType, UserStateType, userType} from "../components/Users/Users";
+import {networkAPI} from "../api/networkAPI";
+import {ThunkActionCreatorType} from "./store";
+import {setStatusAC} from "./app-reducer";
 
-type ActionFollowType={
-    type:string
-    id:number
-}
+export type GeneralActionType= ReturnType<typeof FollowAC> |
+    ReturnType<typeof GetUsersAC>
 
 
 
-let initialState = [
-    {
-        id: 1,
-        follow: false,
-        name: 'Olga',
-        description: 'Mam of Alice',
-        address: {
-            city: 'Minsk',
-            street: 'Landera'
-        }
-    },
-    {
-        id: 2,
-        follow: false,
-        name: 'Alice',
-        description: 'I am Alice',
-        address: {
-            city: 'Minsk',
-            street: 'Landera'
-        }
-    }
-]
-export const usersReducer = (state: Array<userType> = initialState, action: ActionFollowType) => {
+
+
+let initialState:UserStateType = {items:[], totalCount:0, error:'', countPage:3}
+export const usersReducer = (state: UserStateType = initialState, action: GeneralActionType) => {
     switch (action.type) {
         case 'FOLLOW':
-            return state.map((u)=>u.id===action.id? {...u, follow:!u.follow}:u)
+            let newUsers=state.items.map((u)=>u.id===action.id? {...u, followed:!u.followed}:{...u})
+            return {...state, items:newUsers}
+
+        case 'GET-USERS':
+            return {...state, ...action.users}
 
         default:
             return state
     }
 }
 
-export const followAC=(id:number)=>{
-    return {type:'FOLLOW', id:id}
+export const FollowAC=(id:number)=>{
+    return ({type:'FOLLOW', id:id} as const)
+}
+
+const GetUsersAC=(users:UserStateResponseType)=>{
+    return ({type:'GET-USERS', users:users} as const)
+}
+
+export const GetUsersTC=(c:number, n:number): ThunkActionCreatorType=>{
+    return (dispatch)=>{
+        dispatch(setStatusAC('loading'))
+        return networkAPI.getUsers(c,n)
+            .then((res)=>{
+                dispatch(GetUsersAC(res.data))
+                dispatch(setStatusAC('success'))
+            })
+
+    }
 }
