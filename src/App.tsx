@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
@@ -9,6 +9,12 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {Users} from "./components/Users/Users";
+import {UsersProfile} from "./components/UsersProfile/UsersProfile";
+import {useDispatch, useSelector} from "react-redux";
+import {DispatchActionType, RootStateType} from "./state/store";
+import {CircularProgress} from "@mui/material";
+import {setAuthDataTC} from "./state/auth-reducer";
+import {Login} from "./components/Login/Login";
 
 export type NameType={
     id:string,
@@ -38,31 +44,33 @@ function App() {
         if (activeName){
             activeName.isActive = true
         setNames([...unActive])
-
         }
-
     }
-
-
-
+    let load = useSelector<RootStateType, string>((state) => state.app.status)
+    let dispatch = useDispatch<DispatchActionType>()
+    useEffect(() => {
+        dispatch(setAuthDataTC())
+    }, []);
         return (
+            <>
+            {load==='loading'?<CircularProgress/>:
+                load==='error'?<Login/>:
             <BrowserRouter>
-                <div className='app-wrapper'>
+                    <div className='app-wrapper'>
                     <Header/>
                     <Navbar/>
                     <div className='content'>
                         <Route path={'/profile'} render={() => <Profile/>}/>
-                        <Route path={'/dialogs'} render={() => <Dialogs names={names}
-                                                                        onClickChecked={onClickChecked}/>}/>
+                        <Route path={'/dialogs'} render={() => <Dialogs names={names} onClickChecked={onClickChecked}/>}/>
                         <Route path={'/news'} render={() => <News/>}/>
                         <Route path={'/music'} render={() => <Music/>}/>
                         <Route path={'/settings'} render={() => <Settings/>}/>
-                        <Route path={'/users'} render={() => <Users/>}/>
-
+                        <Route path={'/users'} exact={true} render={() => <Users/>}/>
+                        <Route path={'/users/usersprofile'} render={() => <UsersProfile/>}/>
                     </div>
-
                 </div>
             </BrowserRouter>
+}</>
         );
     }
 
