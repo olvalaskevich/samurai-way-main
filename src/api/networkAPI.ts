@@ -17,8 +17,8 @@ type Response={
     totalCount:number
     error:string
 }
-type ResponseAuthType={
-    data:AuthData
+type ResponseAuthType<T={}>={
+    data:T
     resultCode:number
     messages:string[]
 }
@@ -31,6 +31,12 @@ export const networkAPI={
         return instance.get<UserProfileType>(`profile/${userId}`)
     },
     setAuth(){
-        return instance.get<ResponseAuthType>(`auth/me`)
+        return instance.get<ResponseAuthType<AuthData>>(`auth/me`)
+    },
+    setFollow(userId:number){
+        return instance.post<ResponseAuthType>(`follow/${userId}`)
+    },
+    setUnFollow(userId:number){
+        return instance.delete<ResponseAuthType>(`follow/${userId}`)
     }
 }
