@@ -1,6 +1,6 @@
 
 
-export type StatusType='idle'|'loading'|'success'
+export type StatusType='idle'|'loading'|'success'|'error'|'follow'
 
 type AppStatusType= {
     status:StatusType
