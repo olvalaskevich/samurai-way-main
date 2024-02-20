@@ -1,6 +1,7 @@
 import {UserProfileType} from "../components/UsersProfile/UsersProfile";
 import {ThunkActionCreatorType} from "./store";
 import {networkAPI} from "../api/networkAPI";
+import {setStatusAC} from "./app-reducer";
 
 export type AuthData={
     id:number|null
@@ -36,10 +37,17 @@ export const setAuthDataAC=(authData:AuthData)=>{
 
 export const setAuthDataTC=():ThunkActionCreatorType=>{
     return (dispatch)=>{
+        dispatch(setStatusAC('loading'))
         networkAPI.setAuth()
             .then((res)=>{
-                if (res.data.resultCode===0)
-                dispatch(setAuthDataAC(res.data.data))
+                if (res.data.resultCode===0){
+                    dispatch(setAuthDataAC(res.data.data))
+                    dispatch(setStatusAC('success'))
+                }
+                else {
+                    dispatch(setStatusAC('error'))
+                }
+
             })
     }
 }
