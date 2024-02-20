@@ -3,7 +3,8 @@ import {Post} from "../Post/Post";
 import {Btn} from "../../Button/Btn";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../../state/store";
-import {postAC} from "../../../state/posts-reducer";
+import {addPostAC, PostType} from "../../../state/profile-reducer";
+
 
 
 
@@ -12,7 +13,7 @@ export const Posts = () => {
 
     let dispatch=useDispatch()
 
-    let allPosts=useSelector<RootStateType, Array<string>>((state)=>state.posts)
+    let allPosts=useSelector<RootStateType, Array<PostType>>((state)=>state.profile.posts)
 
     let [newPost, setNewPost]=useState('')
 
@@ -22,7 +23,7 @@ export const Posts = () => {
     }
 
     const onChangePostHandler=()=>{
-        dispatch(postAC(newPost))
+        dispatch(addPostAC(newPost))
         setNewPost('')
     }
 
