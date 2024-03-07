@@ -3,8 +3,11 @@
     background-color: #a98484;
 
 }
-.header span{
-    padding-left: 1050px;
+.header button{
+    margin-left: 1050px;
+}
+.header div button{
+    margin-left: 1070px;
 }
 
 .header img{
