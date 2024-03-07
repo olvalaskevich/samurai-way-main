@@ -1,7 +1,6 @@
-import {UserProfileType} from "../components/UsersProfile/UsersProfile";
 import {ThunkActionCreatorType} from "./store";
-import {networkAPI} from "../api/networkAPI";
-import {setStatusAC} from "./app-reducer";
+import {LoginDataType, networkAPI} from "../api/networkAPI";
+import {setErrorAC, setStatusAC} from "./app-reducer";
 
 export type AuthData={
     id:number|null
@@ -12,7 +11,8 @@ export type AuthStateType={
     authData:AuthData
     isAuth:boolean
 }
-export type AuthActionsType=ReturnType<typeof setAuthDataAC>
+export type AuthActionsType=ReturnType<typeof setAuthDataAC> | ReturnType<typeof setLoginAC> | ReturnType<typeof logOutAC>
+
 let initialState:AuthStateType={
     authData:{
         id:null,
@@ -27,12 +27,21 @@ export const authReducer=(state:AuthStateType=initialState,action:AuthActionsTyp
     switch (action.type){
         case 'SET-AUTH-ME':
             return {...state, authData:action.authData, isAuth:true}
-
+        case 'SET-LOGIN':
+            return {...state, isAuth: true}
+        case 'LOG-OUT':
+            return {...initialState}
         default : return state
     }
 }
 export const setAuthDataAC=(authData:AuthData)=>{
     return ({type:'SET-AUTH-ME', authData:authData} as const)
+}
+export const setLoginAC=(isAuth:boolean)=>{
+    return ({type:'SET-LOGIN', isAuth: isAuth} as const)
+}
+export const logOutAC=()=>{
+    return ({type:'LOG-OUT'} as const)
 }
 
 export const setAuthDataTC=():ThunkActionCreatorType=>{
@@ -51,3 +60,37 @@ export const setAuthDataTC=():ThunkActionCreatorType=>{
             })
     }
 }
+export const setLoginTC=(values:LoginDataType):ThunkActionCreatorType=>{
+    return (dispatch)=>{
+        networkAPI.setLogin(values)
+            .then((res)=>{
+                if (res.data.resultCode===0){
+                    dispatch(setLoginAC(true))
+                }
+                else {
+                    dispatch(setErrorAC(res.data.messages[0]))
+                }
+                return res
+            })
+            .then((res)=>{
+                if (res.data.resultCode===0){
+                    dispatch(setAuthDataTC())
+                }
+            })
+    }
+}
+export const LogOutTC=():ThunkActionCreatorType=>{
+    return (dispatch)=>{
+        networkAPI.logOut()
+            .then((res)=>{
+                if (res.data.resultCode===0){
+                    dispatch(logOutAC())
+                }
+                else {
+                    dispatch(setErrorAC(res.data.messages[0]))
+                }
+
+            })
+    }
+}
+
