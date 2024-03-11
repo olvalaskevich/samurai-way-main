@@ -11,6 +11,12 @@ const instance=axios.create({
         'API-KEY':'61bc7b39-2a5d-4430-ab3f-67a78a4381b2'
     }
 })
+export type LoginDataType={
+    email:string
+    password:string
+    rememberMe:boolean
+    captcha?:string
+}
 
 type Response={
     items:Array<userType>
@@ -33,6 +39,12 @@ export const networkAPI={
     setAuth(){
         return instance.get<ResponseAuthType<AuthData>>(`auth/me`)
     },
+    setLogin(values:LoginDataType){
+        return instance.post<ResponseAuthType<{userId:number}>>(`auth/login`, values)
+    },
+    logOut(){
+        return instance.delete<ResponseAuthType>(`auth/login`)
+    },
     setFollow(userId:number){
         return instance.post<ResponseAuthType>(`follow/${userId}`)
     },
@@ -40,3 +52,4 @@ export const networkAPI={
         return instance.delete<ResponseAuthType>(`follow/${userId}`)
     }
 }
+
