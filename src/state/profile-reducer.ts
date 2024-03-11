@@ -13,7 +13,8 @@ export type PostType={
     likesCount:number
 }
 export type ActionProfileType=ReturnType<typeof setUserProfileAC> |
-    ReturnType<typeof addPostAC>
+    ReturnType<typeof addPostAC> |
+    ReturnType<typeof changeStatusAC>
 
 let initialState:ProfileStateType={
     profile: {
@@ -49,6 +50,8 @@ export const profileReducer=(state:ProfileStateType=initialState, action:ActionP
             return {...state, profile: action.profile}
         case 'ADD-POST':
             return {...state, posts:[{id:state.posts.length+1, message:action.message,likesCount: 0}, ...state.posts]}
+        case 'CHANGE-STATUS':
+            return {...state, profile:{...state.profile, lookingForAJobDescription:action.status}}
         default : return state
     }
 }
@@ -58,6 +61,9 @@ export const setUserProfileAC=(profile:UserProfileType)=>{
 }
 export const addPostAC=(message:string)=>{
     return ({type:'ADD-POST', message:message} as const)
+}
+export const changeStatusAC=(status:string)=>{
+    return ({type:'CHANGE-STATUS', status:status} as const)
 }
 export const setCheckedUserTC=(userId:number):ThunkActionCreatorType=>{
     return (dispatch)=>{
