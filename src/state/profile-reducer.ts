@@ -1,20 +1,27 @@
 import {UserProfileType} from "../components/UsersProfile/UsersProfile";
 import {ThunkActionCreatorType} from "./store";
 import {networkAPI} from "../api/networkAPI";
+import {LogOutType} from "./auth-reducer";
 
-type ProfileStateType={
+export type ProfileStateType={
     profile:UserProfileType
     posts:Array<PostType>
     newPostText:string
-}
+}& {status:string}
 export type PostType={
     id:number
     message:string
     likesCount:number
 }
+export type GetStatusType={
+    type:'GET-STATUS',
+    status:string
+}
 export type ActionProfileType=ReturnType<typeof setUserProfileAC> |
     ReturnType<typeof addPostAC> |
-    ReturnType<typeof changeStatusAC>
+    ReturnType<typeof changeStatusAC> |
+    GetStatusType |
+    LogOutType
 
 let initialState:ProfileStateType={
     profile: {
@@ -41,7 +48,8 @@ let initialState:ProfileStateType={
         {id:1, message:'Hello every people', likesCount:0},
         {id:1, message:'Hi every people', likesCount:0}
     ],
-    newPostText:''
+    newPostText:'',
+    status: '---'
 }
 
 export const profileReducer=(state:ProfileStateType=initialState, action:ActionProfileType)=>{
@@ -51,7 +59,11 @@ export const profileReducer=(state:ProfileStateType=initialState, action:ActionP
         case 'ADD-POST':
             return {...state, posts:[{id:state.posts.length+1, message:action.message,likesCount: 0}, ...state.posts]}
         case 'CHANGE-STATUS':
-            return {...state, profile:{...state.profile, lookingForAJobDescription:action.status}}
+            return {...state, status:action.status}
+        case 'GET-STATUS':
+            return {...state, status:action.status}
+        case 'LOG-OUT':
+            return {...initialState}
         default : return state
     }
 }
@@ -65,9 +77,29 @@ export const addPostAC=(message:string)=>{
 export const changeStatusAC=(status:string)=>{
     return ({type:'CHANGE-STATUS', status:status} as const)
 }
-export const setCheckedUserTC=(userId:number):ThunkActionCreatorType=>{
+export const getStatusAC=(status:string)=>{
+    return ({type:'GET-STATUS', status:status} as const)
+}
+export const setCheckedUserTC=(userId:number|null):ThunkActionCreatorType=>{
     return (dispatch)=>{
+        if (userId)
         networkAPI.setCheckedUser(userId)
             .then((res)=>dispatch(setUserProfileAC(res.data)))
+    }
+}
+export const changeStatusTC=(status:string):ThunkActionCreatorType=>{
+    return (dispatch)=>{
+        networkAPI.changeStatusProfile(status)
+            .then((res)=>{
+                if (res.data.resultCode===0)
+                dispatch(changeStatusAC(status))})
+    }
+}
+export const getStatusTC=(userId:number|null):ThunkActionCreatorType=>{
+    return (dispatch)=>{
+        if (userId)
+        networkAPI.getStatusProfile(userId)
+            .then((res)=>{
+                dispatch(getStatusAC(res.data))})
     }
 }
