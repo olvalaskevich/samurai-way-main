@@ -50,6 +50,12 @@ export const networkAPI={
     },
     setUnFollow(userId:number){
         return instance.delete<ResponseAuthType>(`follow/${userId}`)
+    },
+    changeStatusProfile(status:string){
+        return instance.put<ResponseAuthType>(`profile/status`, {status:status})
+    },
+    getStatusProfile(userId:number){
+        return instance.get<string>(`profile/status/${userId}`)
     }
 }
 
