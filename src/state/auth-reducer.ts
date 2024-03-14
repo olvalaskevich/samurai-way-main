@@ -11,7 +11,10 @@ export type AuthStateType={
     authData:AuthData
     isAuth:boolean
 }
-export type AuthActionsType=ReturnType<typeof setAuthDataAC> | ReturnType<typeof setLoginAC> | ReturnType<typeof logOutAC>
+export type LogOutType={
+    type:'LOG-OUT'
+}
+export type AuthActionsType=ReturnType<typeof setAuthDataAC> | ReturnType<typeof setLoginAC> | LogOutType
 
 let initialState:AuthStateType={
     authData:{
