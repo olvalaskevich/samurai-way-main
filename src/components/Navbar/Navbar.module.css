@@ -9,7 +9,11 @@
     color: indianred;
     text-decoration: none;
 }
+a:hover{
 
+    color: #6c5454;
+}
 a.active{
     color: #6b0202;
+    cursor:pointer;
 }
