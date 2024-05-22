@@ -4,7 +4,7 @@ import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
@@ -15,6 +15,7 @@ import {DispatchActionType, RootStateType} from "./state/store";
 import {CircularProgress} from "@mui/material";
 import {setAuthDataTC} from "./state/auth-reducer";
 import {Login} from "./components/Login/Login";
+import {ErrorUtil} from "./components/Error";
 
 export type NameType={
     id:string,
@@ -48,13 +49,18 @@ function App() {
     }
     let load = useSelector<RootStateType, string>((state) => state.app.status)
     let dispatch = useDispatch<DispatchActionType>()
+
+
     useEffect(() => {
         dispatch(setAuthDataTC())
     }, []);
+
+
         return (
+
             <>
             {load==='loading'?<CircularProgress/>:
-                load==='error'?<Login/>:
+
             <BrowserRouter>
                     <div className='app-wrapper'>
                     <Header/>
@@ -67,10 +73,14 @@ function App() {
                         <Route path={'/settings'} render={() => <Settings/>}/>
                         <Route path={'/users'} exact={true} render={() => <Users/>}/>
                         <Route path={'/users/usersprofile'} render={() => <UsersProfile/>}/>
+                        <Route path={'/login'} render={() => <Login/>}/>
                     </div>
+
                 </div>
             </BrowserRouter>
-}</>
+}
+                <ErrorUtil/>
+</>
         );
     }
 

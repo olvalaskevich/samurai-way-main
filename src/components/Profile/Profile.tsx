@@ -5,7 +5,9 @@ import {MyProfile} from "./Posts/MyProfile";
 
 
 
+
 export const Profile = () => {
+
     return (
         <div className={s.content}>
             <MyProfile/>
