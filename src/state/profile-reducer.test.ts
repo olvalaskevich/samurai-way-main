@@ -59,7 +59,8 @@ test('post should be added', ()=>{
 
     let resultState=profileReducer(testState, addPostAC('Hello'))
 
-    expect(resultState.posts[2].message).toBe('Hello')
+    expect(resultState.posts[0].message).toBe('Hello')
+    expect(resultState.posts.length).toBe(3)
 })
 
 test('status should be changed', ()=>{
