@@ -41,7 +41,8 @@ test('user should be added', ()=>{
         error:''
     }))
 
-    expect(resultState.items.length).toBe(2)
+    expect(resultState.items.length).toBe(1)
+    expect(resultState.items[0].id).toBe(2)
 })
 
 test('status should be changed', ()=>{
