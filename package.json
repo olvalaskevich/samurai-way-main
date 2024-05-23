@@ -4,11 +4,14 @@
   "private": true,
   "homepage": "",
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.9",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "12.0.0",
     "@testing-library/user-event": "13.2.1",
     "antd": "4.18.7",
-    "axios": "0.26.0",
+    "axios": "^1.6.5",
     "classnames": "2.3.1",
     "formik": "2.2.9",
     "gh-pages": "3.2.3",
@@ -21,7 +24,7 @@
     "react-test-renderer": "17.0.2",
     "redux": "4.1.2",
     "redux-form": "8.3.8",
-    "redux-thunk": "2.4.1",
+    "redux-thunk": "^3.1.0",
     "reselect": "4.1.5",
     "typescript": "4.4.2",
     "uuid": "8.3.2",
@@ -62,5 +65,10 @@
     "@types/react-test-renderer": "17.0.1",
     "@types/redux-form": "8.3.3",
     "@types/uuid": "8.3.4"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(axios|react-day-picker)/)"
+    ]
   }
 }
