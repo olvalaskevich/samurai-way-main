@@ -1,6 +1,5 @@
 import axios from 'axios'
 import {userType} from "../components/Users/Users";
-import {setCheckedUserTC} from "../state/profile-reducer";
 import {UserProfileType} from "../components/UsersProfile/UsersProfile";
 import {AuthData} from "../state/auth-reducer";
 
