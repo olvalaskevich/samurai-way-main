@@ -2,11 +2,14 @@ import {UserStateResponseType, UserStateType, userType} from "../components/User
 import {networkAPI} from "../api/networkAPI";
 import {ThunkActionCreatorType} from "./store";
 import {setStatusAC, StatusType} from "./app-reducer";
+import {GetStatusType} from "./profile-reducer";
+import {LogOutType} from "./auth-reducer";
 
 export type GeneralActionType= ReturnType<typeof FollowAC> |
     ReturnType<typeof GetUsersAC> |
     ReturnType<typeof ChangeStatusUsersAC> |
-    ReturnType<typeof ChangeStatusUserFollowAC>
+    ReturnType<typeof ChangeStatusUserFollowAC> |
+    LogOutType
 
 
 
@@ -23,7 +26,10 @@ export const usersReducer = (state: UserStateType = initialState, action: Genera
         case 'CHANGE-STATUS':
             return {...state, status:action.status}
         case 'CHANGE-STATUS-FOLLOWED':
-            return {...state, items:state.items.map((u)=>u.id===action.userId?{...u, status:action.status}:u)}
+            return {...state, items:state.items.map((u)=>u.id===action.userId?{...u, statusFollowed:action.status}:u)}
+        case 'LOG-OUT':
+            debugger
+            return {...state, items:[]}
         default:
             return state
     }
@@ -33,13 +39,13 @@ export const FollowAC=(id:number)=>{
     return ({type:'FOLLOW', id:id} as const)
 }
 
-const GetUsersAC=(users:UserStateResponseType)=>{
+export const GetUsersAC=(users:UserStateResponseType)=>{
     return ({type:'GET-USERS', users:users} as const)
 }
-const ChangeStatusUsersAC=(status:StatusType)=>{
+export const ChangeStatusUsersAC=(status:StatusType)=>{
     return ({type:'CHANGE-STATUS', status} as const)
 }
-const ChangeStatusUserFollowAC=(userId:number,status:StatusType)=>{
+export const ChangeStatusUserFollowAC=(userId:number,status:StatusType)=>{
     return ({type:'CHANGE-STATUS-FOLLOWED',userId, status} as const)
 }
 export const GetUsersTC=(c:number, n:number): ThunkActionCreatorType=>{
