@@ -6,8 +6,9 @@ import {FollowAC, GetUsersTC, SetFollowTC} from "../../state/users-reducer";
 import '../../index.css'
 import {StatusType} from "../../state/app-reducer";
 import {CircularProgress} from "@mui/material";
-import {NavLink} from "react-router-dom";
-import {setCheckedUserTC} from "../../state/profile-reducer";
+import {NavLink, Redirect} from "react-router-dom";
+import {getStatusTC, setCheckedUserTC} from "../../state/profile-reducer";
+import {AuthStateType} from "../../state/auth-reducer";
 
 
 export type userType={
@@ -19,7 +20,7 @@ export type userType={
         large:string
     }
     followed: boolean
-}
+} & {statusFollowed:string}
 
 export type UserStateResponseType={
     items:Array<userType>
@@ -36,7 +37,9 @@ export type UserStateType={
 export const Users = () => {
     let dispatch = useDispatch<DispatchActionType>()
     let count=useSelector<RootStateType, number>((state)=>state.users.countPage)
+    let isAuth= useSelector<RootStateType, boolean>((state)=>state.auth.isAuth)
     useEffect(() => {
+        if (isAuth)
         dispatch(GetUsersTC(count, 1))
     }, []);
 
@@ -50,7 +53,7 @@ export const Users = () => {
         pages.push(i)
     }
 
-
+    if (!isAuth) return <Redirect to={'/login'}/>
 
     return (
 
@@ -68,10 +71,13 @@ export const Users = () => {
 
             return <div className={u.wrapper}>
                 <div className={u.ava}>
-                    <NavLink onClick={()=>{dispatch(setCheckedUserTC(user.id))}} to={'/users/usersprofile/'+user.id}>
+                    <NavLink onClick={()=>{
+                        dispatch(setCheckedUserTC(user.id))
+                        dispatch(getStatusTC(user.id))
+                    }} to={`/users/usersprofile/${user.id}`}>
                         <img src={user.photos.small} alt={'ava'}/>
                     </NavLink>
-                    <button disabled={user.status==='loading'} onClick={()=>{dispatch(SetFollowTC(user.id))}}>
+                    <button disabled={user.statusFollowed==='loading'} onClick={()=>{dispatch(SetFollowTC(user.id))}}>
                         {user.followed? 'UNFOLLOW':'FOLLOW'}
                     </button>
                 </div>
