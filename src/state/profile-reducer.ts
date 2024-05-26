@@ -2,6 +2,7 @@ import {UserProfileType} from "../components/UsersProfile/UsersProfile";
 import {ThunkActionCreatorType} from "./store";
 import {networkAPI} from "../api/networkAPI";
 import {LogOutType} from "./auth-reducer";
+import {ChangeStatusUsersAC} from "./users-reducer";
 
 export type ProfileStateType={
     profile:UserProfileType
@@ -46,7 +47,7 @@ let initialState:ProfileStateType={
     },
     posts:[
         {id:1, message:'Hello every people', likesCount:0},
-        {id:1, message:'Hi every people', likesCount:0}
+        {id:2, message:'Hi every people', likesCount:0}
     ],
     newPostText:'',
     status: '---'
@@ -82,9 +83,13 @@ export const getStatusAC=(status:string)=>{
 }
 export const setCheckedUserTC=(userId:number|null):ThunkActionCreatorType=>{
     return (dispatch)=>{
-        if (userId)
+        if (userId){
+            dispatch(ChangeStatusUsersAC('loading'))
         networkAPI.setCheckedUser(userId)
-            .then((res)=>dispatch(setUserProfileAC(res.data)))
+            .then((res)=>{
+                dispatch(setUserProfileAC(res.data))})
+            .then(()=>dispatch(ChangeStatusUsersAC('success')))
+        }
     }
 }
 export const changeStatusTC=(status:string):ThunkActionCreatorType=>{
