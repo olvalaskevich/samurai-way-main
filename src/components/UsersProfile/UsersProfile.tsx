@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import s from "../Profile/Profile.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {DispatchActionType, RootStateType} from "../../state/store";
-import {setCheckedUserTC} from "../../state/profile-reducer";
+import {getStatusTC, ProfileStateType, setCheckedUserTC} from "../../state/profile-reducer";
+import {Redirect} from "react-router-dom";
+import {StatusType} from "../../state/app-reducer";
 
 export type UserProfileType={
     userId: number|null
@@ -27,14 +29,19 @@ export type UserProfileType={
 
 export const UsersProfile = () =>{
 
-    let user=useSelector<RootStateType, UserProfileType>((state)=>state.profile.profile)
+    let user = useSelector<RootStateType, ProfileStateType>((state) => state.profile)
+    let load= useSelector<RootStateType, StatusType>((state) => state.users.status)
 
-    return (
-        <div>
-            <img
-                src={user.photos.small}
-                alt={'user ava'}/>
-            <div>{user.fullName}</div>
-        </div>
-    );
+    if (!user.profile.userId && load==='success')
+        return <Redirect to={'/users'}/>
+    else
+        return (
+            <div>
+                <img
+                    src={user.profile.photos.small}
+                    alt={'user ava'}/>
+                <div>{user.profile.fullName}</div>
+                <div>{user.status}</div>
+            </div>
+        );
 };
