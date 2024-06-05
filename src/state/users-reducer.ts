@@ -1,8 +1,7 @@
 import {UserStateResponseType, UserStateType, userType} from "../components/Users/Users";
 import {networkAPI} from "../api/networkAPI";
 import {ThunkActionCreatorType} from "./store";
-import {setStatusAC, StatusType} from "./app-reducer";
-import {GetStatusType} from "./profile-reducer";
+import {StatusType} from "./app-reducer";
 import {LogOutType} from "./auth-reducer";
 
 export type GeneralActionType= ReturnType<typeof FollowAC> |
@@ -48,38 +47,32 @@ export const ChangeStatusUsersAC=(status:StatusType)=>{
 export const ChangeStatusUserFollowAC=(userId:number,status:StatusType)=>{
     return ({type:'CHANGE-STATUS-FOLLOWED',userId, status} as const)
 }
-export const GetUsersTC=(c:number, n:number): ThunkActionCreatorType=>{
-    return (dispatch)=>{
+export const GetUsersTC = (c: number, n: number): ThunkActionCreatorType => {
+    return async (dispatch) => {
         dispatch(ChangeStatusUsersAC('loading'))
-        return networkAPI.getUsers(c,n)
-            .then((res)=>{
-                dispatch(GetUsersAC(res.data))
-                dispatch(ChangeStatusUsersAC('success'))
-            })
-
+        let res = await networkAPI.getUsers(c, n)
+        dispatch(GetUsersAC(res.data))
+        dispatch(ChangeStatusUsersAC('success'))
     }
 }
-export const SetFollowTC=(userId:number):ThunkActionCreatorType=>{
-    return (dispatch, getState)=>{
-        let user=getState().users.items.find((u)=>u.id===userId)
-        if (user){
+export const SetFollowTC = (userId: number): ThunkActionCreatorType => {
+    return async (dispatch, getState) => {
+        let user = getState().users.items.find((u) => u.id === userId)
+        if (user) {
             if (!user.followed) {
                 dispatch(ChangeStatusUserFollowAC(userId, 'loading'))
-                networkAPI.setFollow(userId)
-                    .then((res) => {
-                        if (res.data.resultCode === 0)
-                            dispatch(FollowAC(userId))
-                            dispatch(ChangeStatusUserFollowAC(userId, 'success'))
-                    })
-        }
-            else {
+                let res = await networkAPI.setFollow(userId)
+                if (res.data.resultCode === 0) {
+                    dispatch(FollowAC(userId))
+                    dispatch(ChangeStatusUserFollowAC(userId, 'success'))
+                }
+            } else {
                 dispatch(ChangeStatusUserFollowAC(userId, 'loading'))
-                networkAPI.setUnFollow(userId)
-                    .then((res) => {
-                        if (res.data.resultCode === 0)
-                            dispatch(FollowAC(userId))
-                            dispatch(ChangeStatusUserFollowAC(userId, 'success'))
-                    })
+                let res = await networkAPI.setUnFollow(userId)
+                if (res.data.resultCode === 0) {
+                    dispatch(FollowAC(userId))
+                    dispatch(ChangeStatusUserFollowAC(userId, 'success'))
+                }
             }
         }
     }

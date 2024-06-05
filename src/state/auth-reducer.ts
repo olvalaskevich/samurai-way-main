@@ -47,53 +47,37 @@ export const logOutAC=()=>{
     return ({type:'LOG-OUT'} as const)
 }
 
-export const setAuthDataTC=():ThunkActionCreatorType=>{
-    return (dispatch)=>{
+export const setAuthDataTC = (): ThunkActionCreatorType => {
+    return async (dispatch) => {
         dispatch(setStatusAC('loading'))
-        networkAPI.setAuth()
-            .then((res)=>{
-                if (res.data.resultCode===0){
-                    dispatch(setAuthDataAC(res.data.data))
-                    dispatch(setStatusAC('success'))
-                }
-                else {
-                    dispatch(setStatusAC('error'))
-                }
-
-            })
+        let res = await networkAPI.setAuth()
+        if (res.data.resultCode === 0) {
+            dispatch(setAuthDataAC(res.data.data))
+            dispatch(setStatusAC('success'))
+        } else {
+            dispatch(setStatusAC('error'))
+        }
     }
 }
 export const setLoginTC=(values:LoginDataType):ThunkActionCreatorType=>{
-    return (dispatch)=>{
-        networkAPI.setLogin(values)
-            .then((res)=>{
-                if (res.data.resultCode===0){
-                    dispatch(setLoginAC(true))
-                }
-                else {
-                    dispatch(setErrorAC(res.data.messages[0]))
-                }
-                return res
-            })
-            .then((res)=>{
-                if (res.data.resultCode===0){
-                    dispatch(setAuthDataTC())
-                }
-            })
+    return async (dispatch)=>{
+        let res= await networkAPI.setLogin(values)
+        if (res.data.resultCode === 0) {
+            dispatch(setLoginAC(true))
+            dispatch(setAuthDataTC())
+        } else {
+            dispatch(setErrorAC(res.data.messages[0]))
+        }
     }
 }
-export const LogOutTC=():ThunkActionCreatorType=>{
-    return (dispatch)=>{
-        networkAPI.logOut()
-            .then((res)=>{
-                if (res.data.resultCode===0){
-                    dispatch(logOutAC())
-                }
-                else {
-                    dispatch(setErrorAC(res.data.messages[0]))
-                }
-
-            })
+export const LogOutTC = (): ThunkActionCreatorType => {
+    return async (dispatch) => {
+        let res = await networkAPI.logOut()
+        if (res.data.resultCode === 0) {
+            dispatch(logOutAC())
+        } else {
+            dispatch(setErrorAC(res.data.messages[0]))
+        }
     }
 }
 

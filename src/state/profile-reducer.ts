@@ -81,30 +81,28 @@ export const changeStatusAC=(status:string)=>{
 export const getStatusAC=(status:string)=>{
     return ({type:'GET-STATUS', status:status} as const)
 }
-export const setCheckedUserTC=(userId:number|null):ThunkActionCreatorType=>{
-    return (dispatch)=>{
-        if (userId){
+export const setCheckedUserTC = (userId: number | null): ThunkActionCreatorType => {
+    return async (dispatch) => {
+        if (userId) {
             dispatch(ChangeStatusUsersAC('loading'))
-        networkAPI.setCheckedUser(userId)
-            .then((res)=>{
-                dispatch(setUserProfileAC(res.data))})
-            .then(()=>dispatch(ChangeStatusUsersAC('success')))
+            let res = await networkAPI.setCheckedUser(userId)
+            dispatch(setUserProfileAC(res.data))
+            dispatch(ChangeStatusUsersAC('success'))
         }
     }
 }
-export const changeStatusTC=(status:string):ThunkActionCreatorType=>{
-    return (dispatch)=>{
-        networkAPI.changeStatusProfile(status)
-            .then((res)=>{
-                if (res.data.resultCode===0)
-                dispatch(changeStatusAC(status))})
+export const changeStatusTC = (status: string): ThunkActionCreatorType => {
+    return async (dispatch) => {
+        let res = await networkAPI.changeStatusProfile(status)
+        if (res.data.resultCode === 0)
+            dispatch(changeStatusAC(status))
     }
 }
-export const getStatusTC=(userId:number|null):ThunkActionCreatorType=>{
-    return (dispatch)=>{
-        if (userId)
-        networkAPI.getStatusProfile(userId)
-            .then((res)=>{
-                dispatch(getStatusAC(res.data))})
+export const getStatusTC = (userId: number | null): ThunkActionCreatorType => {
+    return async (dispatch) => {
+        if (userId) {
+            let res = await networkAPI.getStatusProfile(userId)
+            dispatch(getStatusAC(res.data))
+        }
     }
 }
