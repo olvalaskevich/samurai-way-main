@@ -37,15 +37,9 @@ export const authReducer=(state:AuthStateType=initialState,action:AuthActionsTyp
         default : return state
     }
 }
-export const setAuthDataAC=(authData:AuthData)=>{
-    return ({type:'SET-AUTH-ME', authData:authData} as const)
-}
-export const setLoginAC=(isAuth:boolean)=>{
-    return ({type:'SET-LOGIN', isAuth: isAuth} as const)
-}
-export const logOutAC=()=>{
-    return ({type:'LOG-OUT'} as const)
-}
+export const setAuthDataAC=(authData:AuthData)=>({type:'SET-AUTH-ME', authData:authData} as const)
+export const setLoginAC=(isAuth:boolean)=>({type:'SET-LOGIN', isAuth: isAuth} as const)
+export const logOutAC=()=>({type:'LOG-OUT'} as const)
 
 export const setAuthDataTC = (): ThunkActionCreatorType => {
     return async (dispatch) => {

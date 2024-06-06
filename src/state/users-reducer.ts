@@ -34,19 +34,10 @@ export const usersReducer = (state: UserStateType = initialState, action: Genera
     }
 }
 
-export const FollowAC=(id:number)=>{
-    return ({type:'FOLLOW', id:id} as const)
-}
-
-export const GetUsersAC=(users:UserStateResponseType)=>{
-    return ({type:'GET-USERS', users:users} as const)
-}
-export const ChangeStatusUsersAC=(status:StatusType)=>{
-    return ({type:'CHANGE-STATUS', status} as const)
-}
-export const ChangeStatusUserFollowAC=(userId:number,status:StatusType)=>{
-    return ({type:'CHANGE-STATUS-FOLLOWED',userId, status} as const)
-}
+export const FollowAC=(id:number)=>({type:'FOLLOW', id:id} as const)
+export const GetUsersAC=(users:UserStateResponseType)=>({type:'GET-USERS', users:users} as const)
+export const ChangeStatusUsersAC=(status:StatusType)=>({type:'CHANGE-STATUS', status} as const)
+export const ChangeStatusUserFollowAC=(userId:number,status:StatusType)=>({type:'CHANGE-STATUS-FOLLOWED',userId, status} as const)
 export const GetUsersTC = (c: number, n: number): ThunkActionCreatorType => {
     return async (dispatch) => {
         dispatch(ChangeStatusUsersAC('loading'))

@@ -24,9 +24,5 @@ export const appReducer=(state:AppStatusType=initialState, action:ActionAppStatu
     }
 }
 
-export const setStatusAC=(status:StatusType)=>{
-    return ({type:'SET-STATUS', status: status} as const)
-}
-export const setErrorAC=(error:string|null)=>{
-    return ({type:'SET-ERROR', error: error} as const)
-}
+export const setStatusAC=(status:StatusType)=>({type:'SET-STATUS', status: status} as const)
+export const setErrorAC=(error:string|null)=>({type:'SET-ERROR', error: error} as const)

@@ -69,18 +69,11 @@ export const profileReducer=(state:ProfileStateType=initialState, action:ActionP
     }
 }
 
-export const setUserProfileAC=(profile:UserProfileType)=>{
-    return ({type:'SET-USER-PROFILE', profile:profile} as const)
-}
-export const addPostAC=(message:string)=>{
-    return ({type:'ADD-POST', message:message} as const)
-}
-export const changeStatusAC=(status:string)=>{
-    return ({type:'CHANGE-STATUS', status:status} as const)
-}
-export const getStatusAC=(status:string)=>{
-    return ({type:'GET-STATUS', status:status} as const)
-}
+export const setUserProfileAC=(profile:UserProfileType)=> ({type:'SET-USER-PROFILE', profile:profile} as const)
+
+export const addPostAC=(message:string)=>({type:'ADD-POST', message:message} as const)
+export const changeStatusAC=(status:string)=>({type:'CHANGE-STATUS', status:status} as const)
+export const getStatusAC=(status:string)=>({type:'GET-STATUS', status:status} as const)
 export const setCheckedUserTC = (userId: number | null): ThunkActionCreatorType => {
     return async (dispatch) => {
         if (userId) {
