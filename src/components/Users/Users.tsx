@@ -46,10 +46,11 @@ export const Users = () => {
     let users = useSelector<RootStateType, UserStateType>((state) => state.users)
     let loading=useSelector<RootStateType,StatusType>((state)=>state.users.status)
     let [activePage, setActive] = useState(1)
+    let [newFirstPage, setNewFirstPage] = useState(1)
     let countOfPages = users.totalCount % 3 === 0 ? users.totalCount / 3 : (users.totalCount / 3) + 1
     // let resPages = countOfPages > 10 ? 10 : countOfPages
     let pages = []
-    for (let i = 1; i <= countOfPages; i++) {
+    for (let i = newFirstPage; i <= newFirstPage+9; i++) {
         pages.push(i)
     }
 
@@ -58,12 +59,6 @@ export const Users = () => {
     return (
 
 <>
-    {pages.map((p)=>{
-        return <span className={activePage===p?'active':''} onClick={()=>{
-            dispatch(GetUsersTC(count, p))
-            setActive(p)
-        }}>{p}</span>})
-    }
     <div>
         {loading === 'loading' && <CircularProgress/>}
     </div>
@@ -90,8 +85,22 @@ export const Users = () => {
                 </div>
             </div>
         })}
+    {newFirstPage > 10 && <button onClick={() => {
+        setNewFirstPage((prevState) => prevState - 10)
+        setActive(newFirstPage-10)
+        dispatch(GetUsersTC(count, newFirstPage-10))
+    }}>PREV</button>}
+    {pages.map((p) => {
+        return <span className={activePage === p ? 'active' : ''} onClick={() => {
+            dispatch(GetUsersTC(count, p))
+            setActive(p)
+        }}>{p}</span>
+    })}
+    {countOfPages > 10 && <button onClick={() => {
+        setNewFirstPage(newFirstPage + 10)
+        setActive(newFirstPage+10)
+        dispatch(GetUsersTC(count, newFirstPage+10))
+    }}>NEXT</button>}
 </>
     );
-
-
 };
