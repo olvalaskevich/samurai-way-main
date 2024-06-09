@@ -28,3 +28,6 @@ img {
     flex-direction: column;
     gap: 10px
 }
+span{
+    padding-right: 8px;
+}
