@@ -46,10 +46,10 @@ export const Users = () => {
     let users = useSelector<RootStateType, UserStateType>((state) => state.users)
     let loading=useSelector<RootStateType,StatusType>((state)=>state.users.status)
     let [activePage, setActive] = useState(1)
-    let countOfPages = users.totalCount % 10 === 0 ? users.totalCount / 10 : (users.totalCount / 10) + 1
-    let resPages = countOfPages > 10 ? 10 : countOfPages
+    let countOfPages = users.totalCount % 3 === 0 ? users.totalCount / 3 : (users.totalCount / 3) + 1
+    // let resPages = countOfPages > 10 ? 10 : countOfPages
     let pages = []
-    for (let i = 1; i <= resPages; i++) {
+    for (let i = 1; i <= countOfPages; i++) {
         pages.push(i)
     }
 
