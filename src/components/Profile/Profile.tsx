@@ -6,7 +6,7 @@ import {MyProfile} from "./Posts/MyProfile";
 
 
 
-export const Profile = () => {
+const Profile = () => {
 
     return (
         <div className={s.content}>
@@ -16,3 +16,4 @@ export const Profile = () => {
     );
 };
 
+export default Profile

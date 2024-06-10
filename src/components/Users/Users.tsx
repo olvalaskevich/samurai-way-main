@@ -1,14 +1,13 @@
-import React, {MouseEventHandler, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import u from './users.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {DispatchActionType, RootActionType, RootStateType, ThunkActionCreatorType} from "../../state/store";
-import {FollowAC, GetUsersTC, SetFollowTC} from "../../state/users-reducer";
+import {DispatchActionType, RootStateType} from "../../state/store";
+import {GetUsersTC, SetFollowTC} from "../../state/users-reducer";
 import '../../index.css'
 import {StatusType} from "../../state/app-reducer";
 import {CircularProgress} from "@mui/material";
 import {NavLink, Redirect} from "react-router-dom";
 import {getStatusTC, setCheckedUserTC} from "../../state/profile-reducer";
-import {AuthStateType} from "../../state/auth-reducer";
 
 
 export type userType={
@@ -34,7 +33,7 @@ export type UserStateType={
     error:string
 } & {countPage:number} & {status:StatusType}
 
-export const Users = () => {
+const Users = () => {
     let dispatch = useDispatch<DispatchActionType>()
     let count=useSelector<RootStateType, number>((state)=>state.users.countPage)
     let isAuth= useSelector<RootStateType, boolean>((state)=>state.auth.isAuth)
@@ -104,3 +103,5 @@ export const Users = () => {
 </>
     );
 };
+
+export default Users
