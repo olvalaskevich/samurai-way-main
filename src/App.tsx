@@ -2,13 +2,11 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
-import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Redirect, Route} from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {Users} from "./components/Users/Users";
 import {UsersProfile} from "./components/UsersProfile/UsersProfile";
 import {useDispatch, useSelector} from "react-redux";
 import {DispatchActionType, RootStateType} from "./state/store";
@@ -16,6 +14,10 @@ import {CircularProgress} from "@mui/material";
 import {setAuthDataTC} from "./state/auth-reducer";
 import {Login} from "./components/Login/Login";
 import {ErrorUtil} from "./components/Error";
+import {WithSuspense} from "./hok/WithSuspense";
+
+const Profile = React.lazy(() => import('./components/Profile/Profile'));
+const Users = React.lazy(() => import('./components/Users/Users'));
 
 export type NameType={
     id:string,
@@ -66,12 +68,12 @@ function App() {
                     <Header/>
                     <Navbar/>
                     <div className='content'>
-                        <Route path={'/profile'} render={() => <Profile/>}/>
+                        <Route path={'/profile'} render={WithSuspense(Profile)}/>
                         <Route path={'/dialogs'} render={() => <Dialogs names={names} onClickChecked={onClickChecked}/>}/>
                         <Route path={'/news'} render={() => <News/>}/>
                         <Route path={'/music'} render={() => <Music/>}/>
                         <Route path={'/settings'} render={() => <Settings/>}/>
-                        <Route path={'/users'} exact={true} render={() => <Users/>}/>
+                        <Route path={'/users'} exact={true} render={WithSuspense(Users)}/>
                         <Route path={'/users/usersprofile'} render={() => <UsersProfile/>}/>
                         <Route path={'/login'} render={() => <Login/>}/>
                     </div>
