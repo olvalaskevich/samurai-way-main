@@ -22,7 +22,7 @@ type Response={
     totalCount:number
     error:string
 }
-type ResponseAuthType<T={}>={
+export type ResponseAuthType<T={}>={
     data:T
     resultCode:number
     messages:string[]
