@@ -5,6 +5,7 @@ import {DispatchActionType, RootStateType} from "../../../state/store";
 import {Redirect} from "react-router-dom";
 import {EditSpan} from "../EditSpan";
 import {changeStatusTC, getStatusTC} from "../../../state/profile-reducer";
+import img from '../../../assets/i.webp'
 
 export const MyProfile = () => {
     let isAuth=  useSelector<RootStateType, boolean>((state) => state.auth.isAuth)
@@ -26,7 +27,7 @@ export const MyProfile = () => {
                 src={'https://fikiwiki.com/uploads/posts/2022-02/1644965580_6-fikiwiki-com-p-kartinki-priroda-na-zastavku-telefona-6.jpg'}
                 alt={'main pict'}/>
             <div className={s.photo}>
-                <img src={"https://klike.net/uploads/posts/2023-01/1673594987_3-24.jpg"} alt={'photo'}/>
+                <img src={img} alt={'photo'}/>
             </div>
             <EditSpan title={editSpanTitle} changeEditSpan={changeEditSpan}/>
         </div>
