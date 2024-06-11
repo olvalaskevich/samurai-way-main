@@ -47,7 +47,6 @@ const Users = () => {
     let [activePage, setActive] = useState(1)
     let [newFirstPage, setNewFirstPage] = useState(1)
     let countOfPages = users.totalCount % 3 === 0 ? users.totalCount / 3 : (users.totalCount / 3) + 1
-    // let resPages = countOfPages > 10 ? 10 : countOfPages
     let pages = []
     for (let i = newFirstPage; i <= newFirstPage+9; i++) {
         pages.push(i)
