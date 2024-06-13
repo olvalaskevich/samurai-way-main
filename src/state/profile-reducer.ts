@@ -22,7 +22,8 @@ export type ActionProfileType=ReturnType<typeof setUserProfileAC> |
     ReturnType<typeof addPostAC> |
     ReturnType<typeof changeStatusAC> |
     GetStatusType |
-    LogOutType
+    LogOutType |
+    ReturnType<typeof changeProfilePhotoAC>
 
 let initialState:ProfileStateType={
     profile: {
@@ -65,23 +66,37 @@ export const profileReducer=(state:ProfileStateType=initialState, action:ActionP
             return {...state, status:action.status}
         case 'LOG-OUT':
             return {...initialState}
+        case 'CHANGE-PROFILE-PHOTO':
+
+            return {...state, profile: {...state.profile, photos:action.photos}}
         default : return state
     }
 }
 
 export const setUserProfileAC=(profile:UserProfileType)=> ({type:'SET-USER-PROFILE', profile:profile} as const)
 
-export const addPostAC=(message:string)=>({type:'ADD-POST', message:message} as const)
-export const changeStatusAC=(status:string)=>({type:'CHANGE-STATUS', status:status} as const)
-export const getStatusAC=(status:string)=>({type:'GET-STATUS', status:status} as const)
+export const addPostAC=(message:string)=>({type:'ADD-POST', message} as const)
+export const changeStatusAC=(status:string)=>({type:'CHANGE-STATUS', status} as const)
+export const getStatusAC=(status:string)=>({type:'GET-STATUS', status} as const)
+export const changeProfilePhotoAC=(photos: {small:string,large:string})=>({type:'CHANGE-PROFILE-PHOTO', photos} as const)
 export const setCheckedUserTC = (userId: number | null): ThunkActionCreatorType => {
     return async (dispatch) => {
         if (userId) {
             dispatch(ChangeStatusUsersAC('loading'))
             let res = await networkAPI.setCheckedUser(userId)
             dispatch(setUserProfileAC(res.data))
-            dispatch(ChangeStatusUsersAC('success'))
+            // dispatch(ChangeStatusUsersAC('success'))
         }
+    }
+}
+export const ChangeProfilePhotoTC=(photo:any): ThunkActionCreatorType=>{
+    return async (dispatch) => {
+        debugger
+        let res = await networkAPI.changeProfilePhoto(photo)
+        if (res.data.resultCode === 0){
+            dispatch(changeProfilePhotoAC(res.data.data))
+        }
+
     }
 }
 export const changeStatusTC = (status: string): ThunkActionCreatorType => {
