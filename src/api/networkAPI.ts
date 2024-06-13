@@ -55,6 +55,15 @@ export const networkAPI={
     },
     getStatusProfile(userId:number){
         return instance.get<string>(`profile/status/${userId}`)
+    },
+    changeProfilePhoto(photo:any){
+        const formData=new FormData();
+        formData.append('image', photo)
+        return instance.put<ResponseAuthType<{small:string, large:string}>>(`profile/photo`, formData, {
+            headers:{
+                'Content-Type':'multipart/form-data'
+            }
+        })
     }
 }
 
