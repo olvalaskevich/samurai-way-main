@@ -59,7 +59,7 @@ export const networkAPI={
     changeProfilePhoto(photo:any){
         const formData=new FormData();
         formData.append('image', photo)
-        return instance.put<ResponseAuthType<{small:string, large:string}>>(`profile/photo`, formData, {
+        return instance.put<ResponseAuthType<{photos:{small:string, large:string}}>>(`profile/photo`, formData, {
             headers:{
                 'Content-Type':'multipart/form-data'
             }
