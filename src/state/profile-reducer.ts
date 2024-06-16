@@ -91,10 +91,10 @@ export const setCheckedUserTC = (userId: number | null): ThunkActionCreatorType 
 }
 export const ChangeProfilePhotoTC=(photo:any): ThunkActionCreatorType=>{
     return async (dispatch) => {
-        debugger
+
         let res = await networkAPI.changeProfilePhoto(photo)
         if (res.data.resultCode === 0){
-            dispatch(changeProfilePhotoAC(res.data.data))
+            dispatch(changeProfilePhotoAC(res.data.data.photos))
         }
 
     }
