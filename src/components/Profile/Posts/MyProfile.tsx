@@ -11,13 +11,11 @@ import {
     ProfileStateType,
     setCheckedUserTC
 } from "../../../state/profile-reducer";
-import img from '../../../assets/i.webp'
-
 export const MyProfile = () => {
     let isAuth=  useSelector<RootStateType, boolean>((state) => state.auth.isAuth)
     let myUserId=useSelector<RootStateType, number|null>((state) => state.auth.authData.id)
     let editSpanTitle=  useSelector<RootStateType, string>((state) => state.profile.status)
-    let photo=useSelector<RootStateType, string>((state) => state.profile.profile.photos.small)
+    let profile=useSelector<RootStateType, ProfileStateType>((state) => state.profile)
 
     let dispatch=useDispatch<DispatchActionType>()
     const changeEditSpan=(value:string)=>{
@@ -41,9 +39,22 @@ export const MyProfile = () => {
                 src={'https://fikiwiki.com/uploads/posts/2022-02/1644965580_6-fikiwiki-com-p-kartinki-priroda-na-zastavku-telefona-6.jpg'}
                 alt={'main pict'}/>
             <div className={s.photo}>
-                <img src={photo} alt={'photo'}/>
+                <img src={profile.profile.photos.large} alt={'photo'}/>
             </div>
             <input type={"file"} onChange={(e)=>ChangeFileHandler(e)}></input>
+            <div>
+                Looking for a job: {profile.profile.lookingForAJob?'Yes':'No'}
+            </div>
+            <div>
+                Looking for a job description: {profile.profile.lookingForAJobDescription}
+            </div>
+            <div>
+                Contacts: <a href={`${profile.profile.contacts.github}`}>GitHub</a>
+                <div>
+                    <a href={`${profile.profile.contacts.instagram}`}>Instagram</a>
+                </div>
+
+            </div>
             <div>
                 <EditSpan title={editSpanTitle} changeEditSpan={changeEditSpan}/>
             </div>
