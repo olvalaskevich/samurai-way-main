@@ -1,4 +1,4 @@
-import {UserStateResponseType, UserStateType, userType} from "../components/Users/Users";
+import {UserStateResponseType, UserStateType} from "../components/Users/Users";
 import {networkAPI} from "../api/networkAPI";
 import {ThunkActionCreatorType} from "./store";
 import {StatusType} from "./app-reducer";
@@ -38,6 +38,7 @@ export const FollowAC=(id:number)=>({type:'FOLLOW', id:id} as const)
 export const GetUsersAC=(users:UserStateResponseType)=>({type:'GET-USERS', users:users} as const)
 export const ChangeStatusUsersAC=(status:StatusType)=>({type:'CHANGE-STATUS', status} as const)
 export const ChangeStatusUserFollowAC=(userId:number,status:StatusType)=>({type:'CHANGE-STATUS-FOLLOWED',userId, status} as const)
+
 export const GetUsersTC = (c: number, n: number): ThunkActionCreatorType => {
     return async (dispatch) => {
         dispatch(ChangeStatusUsersAC('loading'))
