@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from "../Profile.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {DispatchActionType, RootStateType} from "../../../state/store";
@@ -11,11 +11,17 @@ import {
     ProfileStateType,
     setCheckedUserTC
 } from "../../../state/profile-reducer";
-export const MyProfile = () => {
+import {ProfileForm} from "../ProfileForm";
+
+type MyProfilePropsType={
+    сhangeProfile:()=>void
+}
+export const MyProfile = (props:MyProfilePropsType) => {
     let isAuth=  useSelector<RootStateType, boolean>((state) => state.auth.isAuth)
     let myUserId=useSelector<RootStateType, number|null>((state) => state.auth.authData.id)
     let editSpanTitle=  useSelector<RootStateType, string>((state) => state.profile.status)
     let profile=useSelector<RootStateType, ProfileStateType>((state) => state.profile)
+
 
     let dispatch=useDispatch<DispatchActionType>()
     const changeEditSpan=(value:string)=>{
@@ -32,7 +38,10 @@ export const MyProfile = () => {
 
     }
 
+
+
     if (!isAuth) return <Redirect to={'/login'}/>
+
     return (
         <div>
             <img
@@ -55,6 +64,7 @@ export const MyProfile = () => {
                 </div>
 
             </div>
+            <button onClick={props.сhangeProfile}>Edit</button>
             <div>
                 <EditSpan title={editSpanTitle} changeEditSpan={changeEditSpan}/>
             </div>
