@@ -2,6 +2,7 @@ import axios from 'axios'
 import {userType} from "../components/Users/Users";
 import {UserProfileType} from "../components/UsersProfile/UsersProfile";
 import {AuthData} from "../state/auth-reducer";
+import {ProfileType} from "../components/Profile/ProfileForm";
 
 const instance=axios.create({
     baseURL:'https://social-network.samuraijs.com/api/1.0/',
@@ -64,6 +65,9 @@ export const networkAPI={
                 'Content-Type':'multipart/form-data'
             }
         })
+    },
+    changeProfileInfo(newProfileInfo:ProfileType){
+        return instance.put<ResponseAuthType<ProfileType>>(`profile`)
     }
 }
 
