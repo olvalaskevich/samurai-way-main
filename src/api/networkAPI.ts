@@ -67,7 +67,7 @@ export const networkAPI={
         })
     },
     changeProfileInfo(newProfileInfo:ProfileType){
-        return instance.put<ResponseAuthType<ProfileType>>(`profile`)
+        return instance.put<ResponseAuthType>(`profile`, newProfileInfo)
     }
 }
 
