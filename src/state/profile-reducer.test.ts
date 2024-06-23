@@ -3,6 +3,7 @@ import {logOutAC} from "./auth-reducer";
 
 let testState={
     profile: {
+        aboutMe:null,
         userId: null,
         lookingForAJob: false,
         lookingForAJobDescription: '',
@@ -32,6 +33,7 @@ let testState={
 test('users profile should be added', ()=>{
 
     let resultState=profileReducer(testState, setUserProfileAC({
+        aboutMe:'I love FE',
         userId: 1,
         lookingForAJob: true,
         lookingForAJobDescription: 'string',
