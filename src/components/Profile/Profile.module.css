@@ -21,3 +21,12 @@
     border-radius: 50%;
 
 }
+.form{
+    position: absolute;
+    top:40%;
+    left:45%;
+    background-color: grey;
+}
+.edit{
+    opacity:0.5
+}
