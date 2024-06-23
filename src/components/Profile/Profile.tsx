@@ -10,16 +10,17 @@ import {ProfileForm} from "./ProfileForm";
 const Profile = () => {
 
     let [mode, setMode]=useState(true)
-    const сhangeProfile=()=>{
+    const changeProfile=()=>{
         setMode(false)
     }
     const closeForm=()=>{
         setMode(true)
     }
-    if (!mode) return <ProfileForm closeForm={closeForm}/>
+
     return (
         <div className={s.content}>
-            <MyProfile сhangeProfile={сhangeProfile}/>
+            {!mode && <div className={s.form}><ProfileForm closeForm={closeForm}/></div>}
+            <MyProfile mode={mode} changeProfile={changeProfile}/>
             <Posts/>
         </div>
     );
