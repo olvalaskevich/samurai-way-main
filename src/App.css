@@ -1,19 +1,30 @@
+body{
+    background-image: url("assets/social-network-concept-human-figures-blue-line-3d-rendering-scaled.jpg");
+    background-size: cover;
+
+}
 .app-wrapper{
+    position: relative;
     display: grid;
     grid-template-areas:
     'h h'
-    'n c'
+    'n n'
+    'c c'
 ;
     grid-template-rows: 60px 1fr;
     grid-template-columns: 2fr 10fr;
+
     max-width: 1200px;
     width: 100%;
+    height: 100vh;
     margin: 0 auto;
 }
 
 .content{
     grid-area: c;
-    background-color: #c1eff6;
+    background-color: black;
+    box-shadow: 0 0 10px 1px rgb(17,193,253);
+    border-radius: 5px;
 }
 
 

@@ -1,20 +1,67 @@
-.content img{
-    width: 100%;
-    height: 100px;
+
+.wrapper{
+    display:flex;
+    color:rgb(102,80,56);
 }
-
-
-
 .photo{
-    width: 70px;
+    width: 40%;
+    text-align: center;
+    padding: 5% 0;
+}
+.photo img{
+    border-radius: 50%;
+    box-shadow: 0 0 20px 5px rgb(102,80,56);
+    margin-bottom: 20px;
 
 }
+.info{
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.info div{
 
+    padding-bottom: 10px;
+
+}
+.description{
+    border: 1px solid rgb(102,80,56);
+    border-radius: 10px;
+    box-shadow: 0 0 20px 3px rgb(102,80,56);
+    padding:20px;
+    position: relative;
+}
+.description button{
+    position: absolute;
+    left:390px;
+    bottom: 170px;
+    background-color: transparent;
+    border: none;
+}
+.info a{
+    padding-right: 20px;
+}
 .avatar{
     display: flex;
     align-items: center;
 }
+.container{
+    position:relative;
+    top: 320px;
+    left:-130px;
+}
 
+.pencil{
+color:rgb(102,80,56);
+
+}
+
+input{
+    position:absolute;
+    opacity:0;
+    z-index: 999;
+}
 
 .avatar img{
     width: 70px;
@@ -29,4 +76,7 @@
 }
 .edit{
     opacity:0.5
+}
+.posts{
+    color:rgb(102,80,56);
 }

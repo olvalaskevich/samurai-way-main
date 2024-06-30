@@ -1,15 +1,35 @@
 .header{
     grid-area: h;
-    background-color: #a98484;
-
+    background-color: transparent;
+    text-align: center;
 }
 .header button{
-    margin-left: 1050px;
+    position:absolute;
+    top:20px;
+    right:50px;
+    text-shadow: 5px 5px 20px rgb(17,193,253);
+    background-color: transparent;
+    color:rgb(1,191,253);
+    border: none;
+}
+.header button:hover {
+    cursor: pointer;
+
 }
 .header div button{
-    margin-left: 1070px;
+    background-color: transparent;
+    color:rgb(1,191,253);
+    text-shadow: 5px 5px 20px rgb(17,193,253);
+    position:absolute;
+    top:50px;
+    right:60px;
 }
 
 .header img{
     width: 20px;
+}
+h1{
+    color: rgb(1,191,253);
+    text-shadow: 5px 5px 20px rgb(17,193,253);
+
 }

@@ -1,19 +1,32 @@
 .nav{
+    margin: 20px;
     grid-area: n;
-    background-color: beige;
+    display: flex;
+    background-color: transparent;
     color: brown;
     padding: 15px;
+    justify-content: space-between;
+
 }
 
 .link a {
-    color: indianred;
+    color: rgb(102,80,56);
     text-decoration: none;
-}
-a:hover{
+    max-width: 150px;
+    padding: 10px 50px;
+    border: 1px solid rgb(102,80,56);
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 1px rgb(102,80,56);
 
-    color: #6c5454;
 }
-a.active{
-    color: #6b0202;
+.link a:hover{
+    border: 1px solid rgb(17,193,253);
+    box-shadow: 5px 5px 10px 1px rgb(17,193,253);
+    color: rgb(17,193,253);
+}
+.link a.active{
+    color: rgb(17,193,253);
     cursor:pointer;
+    border: 1px solid rgb(17,193,253);
+    box-shadow: 5px 5px 10px 1px rgb(17,193,253);
 }
