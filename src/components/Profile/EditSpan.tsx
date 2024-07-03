@@ -1,4 +1,5 @@
 import {ChangeEvent, useState} from "react";
+import s from '../Profile/Profile.module.css';
 import {Input} from "@mui/material";
 
 type EditSpanPropsType={
@@ -25,12 +26,16 @@ export const EditSpan=(props:EditSpanPropsType)=>{
     }
 
     return (
-        <>
+        <div className={s.editField}>
             {onDouble ?
-                <Input onBlur={onBlurInputHandler} onChange={onChangeInputHandler} value={value} autoFocus color={"secondary"}/>
+                <Input onBlur={onBlurInputHandler} onChange={onChangeInputHandler} value={value} autoFocus color={"primary"} inputProps={{
+                    style: {
+                        color: 'rgb(17,193,253)'
+                    }
+                }}/>
                 :
                 <span onDoubleClick={onDoubleClickHandler}>{props.title}</span>
             }
-        </>
+        </div>
     );
 }
