@@ -1,21 +1,20 @@
 {
   "files": {
-    "main.css": "/samurai-way-main/static/css/main.3d85a281.css",
-    "main.js": "/samurai-way-main/static/js/main.cd6abddc.js",
-    "static/css/677.a0fb0a2c.chunk.css": "/samurai-way-main/static/css/677.a0fb0a2c.chunk.css",
-    "static/js/677.6b648ef6.chunk.js": "/samurai-way-main/static/js/677.6b648ef6.chunk.js",
-    "static/css/36.06887af0.chunk.css": "/samurai-way-main/static/css/36.06887af0.chunk.css",
-    "static/js/36.b073ef52.chunk.js": "/samurai-way-main/static/js/36.b073ef52.chunk.js",
+    "main.css": "/samurai-way-main/static/css/main.92edcebb.css",
+    "main.js": "/samurai-way-main/static/js/main.288165aa.js",
+    "static/css/677.f10875a3.chunk.css": "/samurai-way-main/static/css/677.f10875a3.chunk.css",
+    "static/js/677.853ef039.chunk.js": "/samurai-way-main/static/js/677.853ef039.chunk.js",
+    "static/js/458.35fd0b05.chunk.js": "/samurai-way-main/static/js/458.35fd0b05.chunk.js",
+    "static/media/social-network-concept-human-figures-blue-line-3d-rendering-scaled.jpg": "/samurai-way-main/static/media/social-network-concept-human-figures-blue-line-3d-rendering-scaled.da92ae768bdacb1bad8d.jpg",
     "index.html": "/samurai-way-main/index.html",
-    "main.3d85a281.css.map": "/samurai-way-main/static/css/main.3d85a281.css.map",
-    "main.cd6abddc.js.map": "/samurai-way-main/static/js/main.cd6abddc.js.map",
-    "677.a0fb0a2c.chunk.css.map": "/samurai-way-main/static/css/677.a0fb0a2c.chunk.css.map",
-    "677.6b648ef6.chunk.js.map": "/samurai-way-main/static/js/677.6b648ef6.chunk.js.map",
-    "36.06887af0.chunk.css.map": "/samurai-way-main/static/css/36.06887af0.chunk.css.map",
-    "36.b073ef52.chunk.js.map": "/samurai-way-main/static/js/36.b073ef52.chunk.js.map"
+    "main.92edcebb.css.map": "/samurai-way-main/static/css/main.92edcebb.css.map",
+    "main.288165aa.js.map": "/samurai-way-main/static/js/main.288165aa.js.map",
+    "677.f10875a3.chunk.css.map": "/samurai-way-main/static/css/677.f10875a3.chunk.css.map",
+    "677.853ef039.chunk.js.map": "/samurai-way-main/static/js/677.853ef039.chunk.js.map",
+    "458.35fd0b05.chunk.js.map": "/samurai-way-main/static/js/458.35fd0b05.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3d85a281.css",
-    "static/js/main.cd6abddc.js"
+    "static/css/main.92edcebb.css",
+    "static/js/main.288165aa.js"
   ]
 }
