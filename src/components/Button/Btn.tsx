@@ -1,4 +1,5 @@
 import React from 'react';
+import s from "../Profile/Profile.module.css";
 
 type BtnPropsType={
     title:string
@@ -7,7 +8,7 @@ type BtnPropsType={
 
 export const Btn = (props:BtnPropsType) => {
     return (
-        <div>
+        <div className={s.postsButton}>
             <button onClick={props.onChangePost}>{props.title}</button>
         </div>
     );
