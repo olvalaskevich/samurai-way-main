@@ -61,9 +61,9 @@ function App() {
         return (
 
             <>
-            {load==='loading'?<CircularProgress/>:
+            {load==='loading'?<div className={'preloader'}><CircularProgress/></div>:
 
-            <BrowserRouter>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
                     <div className='app-wrapper'>
                     <Header/>
                     <Navbar/>
