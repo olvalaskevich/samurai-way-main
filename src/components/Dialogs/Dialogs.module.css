@@ -9,13 +9,38 @@
 }
 .name a{
     text-decoration: none;
-    color: crimson;
+    color: rgb(102,80,56);
+    font-weight: bold;
 }
 
 .text{
     list-style: none;
+    color: rgb(102,80,56);
 }
 a.active{
     text-decoration: none;
-    color: #a98484;
+    color: rgb(17,193,253);
+}
+a:hover{
+    color: rgb(17,193,253);
+}
+.textMessages{
+    margin: 20px;
+}
+button{
+    padding: 5px;
+    background-color: black;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 20px 3px rgb(102,80,56);
+    color:rgb(102,80,56);
+}
+.fieldText{
+    display: flex;
+    align-items: center;
+}
+textarea{
+    background-color: rgb(17,193,253);
+    border-radius: 5px;
+    box-shadow: 0 0 10px 1px rgb(17,193,253);
 }
