@@ -1,7 +1,7 @@
 body{
     background-image: url("assets/social-network-concept-human-figures-blue-line-3d-rendering-scaled.jpg");
-    background-size: cover;
 
+    height: 100vh;
 }
 .app-wrapper{
     position: relative;
@@ -16,7 +16,7 @@ body{
 
     max-width: 1200px;
     width: 100%;
-    height: 100vh;
+    background-size: cover;
     margin: 0 auto;
 }
 
@@ -25,6 +25,11 @@ body{
     background-color: black;
     box-shadow: 0 0 10px 1px rgb(17,193,253);
     border-radius: 5px;
+}
+.preloader{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
 }
 
 
