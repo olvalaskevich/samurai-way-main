@@ -35,8 +35,11 @@ export const Messages = (props:MessagesPropsType) => {
             {messages[props.idN].map((t)=>{
                 return <li>{t}</li>
             })}
-            <textarea value={value} onChange={onChangeHandler}></textarea>
-            <button onClick={addMessageHandler}>Send</button>
+            <div className={s.fieldText}>
+                <textarea className={s.textMessages} value={value} onChange={onChangeHandler} placeholder={'Enter new message'}></textarea>
+                <button onClick={addMessageHandler}>Send</button>
+            </div>
+
         </ul>
 
         </>
