@@ -12,6 +12,7 @@ import {
     setCheckedUserTC
 } from "../../../state/profile-reducer";
 import {ProfileForm} from "../ProfileForm";
+import {Posts} from "./Posts";
 
 type MyProfilePropsType={
     changeProfile:()=>void
@@ -44,35 +45,41 @@ export const MyProfile = (props:MyProfilePropsType) => {
     if (!isAuth) return <Redirect to={'/login'}/>
 
     return (
-        <div className={props.mode?'':s.edit}>
-            <img
-                src={'https://fikiwiki.com/uploads/posts/2022-02/1644965580_6-fikiwiki-com-p-kartinki-priroda-na-zastavku-telefona-6.jpg'}
-                alt={'main pict'}/>
+        <div className={props.mode ? s.wrapper : s.edit}>
+
             <div className={s.photo}>
                 <img src={profile.profile.photos.large} alt={'photo'}/>
-            </div>
-            <input type={"file"} onChange={(e)=>ChangeFileHandler(e)}></input>
-            <div>
-                About me: {profile.profile.aboutMe}
-            </div>
-            <div>
-                Looking for a job: {profile.profile.lookingForAJob?'Yes':'No'}
-            </div>
-            <div>
-                Looking for a job description: {profile.profile.lookingForAJobDescription}
-            </div>
-            <div>
-                Contacts: <a href={`${profile.profile.contacts.github}`}>GitHub</a>
                 <div>
-                    <a href={`${profile.profile.contacts.instagram}`}>Instagram</a>
+                    <EditSpan title={editSpanTitle} changeEditSpan={changeEditSpan}/>
                 </div>
-
-            </div>
-            <button onClick={props.changeProfile}>Edit</button>
-            <div>
-                <EditSpan title={editSpanTitle} changeEditSpan={changeEditSpan}/>
             </div>
 
+            <div className={s.container}>
+                <input className={s.inputFile} type={"file"} onChange={(e) => ChangeFileHandler(e)}/>
+                <span className={s.pencil}>edit</span>
+            </div>
+            <div className={s.info}>
+                <div className={s.description}>
+                    <div>
+                        About me: {profile.profile.aboutMe}
+                    </div>
+                    <div>
+                        Looking for a job: {profile.profile.lookingForAJob ? 'Yes' : 'No'}
+                    </div>
+                    <div>
+                        Looking for a job description: {profile.profile.lookingForAJobDescription}
+                    </div>
+                    <div>
+                        Contacts:
+                        <div>
+                            <a href={`${profile.profile.contacts.github}`}>GitHub</a>
+                            <a href={`${profile.profile.contacts.instagram}`}>Instagram</a>
+                        </div>
+                    </div>
+                    <button onClick={props.changeProfile}>✏️</button>
+                </div>
+                <Posts/>
+            </div>
         </div>
     );
 };
