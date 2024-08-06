@@ -9,9 +9,9 @@ type NavLinkPropsType={
 
 export const NavigLink = (props:NavLinkPropsType) => {
     return (
-        <div className={s.link}>
+        <span className={s.link}>
             <NavLink to={props.adress} activeClassName={s.active}>{props.name}</NavLink>
-        </div>
+        </span>
     );
 };
 
