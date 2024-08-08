@@ -3,6 +3,7 @@ import {ThunkActionCreatorType} from "./store";
 import {networkAPI} from "../api/networkAPI";
 import {LogOutType} from "./auth-reducer";
 import {ChangeStatusUsersAC} from "./users-reducer";
+import {ProfileType} from "../components/Profile/ProfileForm";
 
 export type ProfileStateType={
     profile:UserProfileType
@@ -23,10 +24,12 @@ export type ActionProfileType=ReturnType<typeof setUserProfileAC> |
     ReturnType<typeof changeStatusAC> |
     GetStatusType |
     LogOutType |
-    ReturnType<typeof changeProfilePhotoAC>
+    ReturnType<typeof changeProfilePhotoAC> |
+    ReturnType<typeof changeProfileAC>
 
 let initialState:ProfileStateType={
     profile: {
+        aboutMe:null,
         userId: null,
         lookingForAJob: false,
         lookingForAJobDescription: '',
@@ -67,8 +70,9 @@ export const profileReducer=(state:ProfileStateType=initialState, action:ActionP
         case 'LOG-OUT':
             return {...initialState}
         case 'CHANGE-PROFILE-PHOTO':
-
             return {...state, profile: {...state.profile, photos:action.photos}}
+        case 'CHANGE-PROFILE':
+            return {...state, profile: {...state.profile, ...action.newProfileInfo}}
         default : return state
     }
 }
@@ -89,6 +93,8 @@ export const setCheckedUserTC = (userId: number | null): ThunkActionCreatorType 
         }
     }
 }
+export const changeProfileAC=(newProfileInfo:ProfileType)=>({type:'CHANGE-PROFILE', newProfileInfo} as const)
+
 export const ChangeProfilePhotoTC=(photo:any): ThunkActionCreatorType=>{
     return async (dispatch) => {
 
@@ -112,5 +118,16 @@ export const getStatusTC = (userId: number | null): ThunkActionCreatorType => {
             let res = await networkAPI.getStatusProfile(userId)
             dispatch(getStatusAC(res.data))
         }
+    }
+}
+export const changeProfileTC = (newProfileInfo: ProfileType): ThunkActionCreatorType => {
+    return async (dispatch) => {
+
+            let res = await networkAPI.changeProfileInfo(newProfileInfo)
+        if (res.data.resultCode===0){
+            dispatch(changeProfileAC(newProfileInfo))
+        }
+
+
     }
 }
