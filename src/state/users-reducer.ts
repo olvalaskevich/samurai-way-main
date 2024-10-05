@@ -14,7 +14,7 @@ export type GeneralActionType= ReturnType<typeof FollowAC> |
 
 
 
-let initialState:UserStateType = {items:[], totalCount:0, error:'', countPage:3, status:'idle'}
+let initialState:UserStateType = {items:[], totalCount:0, error:'', countPage:10, status:'idle'}
 export const usersReducer = (state: UserStateType = initialState, action: GeneralActionType) => {
     switch (action.type) {
         case 'FOLLOW':
