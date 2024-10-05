@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import u from './users.module.css'
+import u from './Users.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {DispatchActionType, RootStateType} from "../../state/store";
 import {GetUsersTC, SetFollowTC} from "../../state/users-reducer";
@@ -17,7 +17,8 @@ export type userType={
     photos: {
         small:string
         large:string
-    }
+    },
+    age:number,
     followed: boolean
 } & {statusFollowed:string}
 
@@ -46,7 +47,7 @@ const Users = () => {
     let loading=useSelector<RootStateType,StatusType>((state)=>state.users.status)
     let [activePage, setActive] = useState(1)
     let [newFirstPage, setNewFirstPage] = useState(1)
-    let countOfPages = users.totalCount % 3 === 0 ? users.totalCount / 3 : (users.totalCount / 3) + 1
+    let countOfPages = users.totalCount % 10 === 0 ? users.totalCount / 10 : (users.totalCount / 10) + 1
     let pages = []
     for (let i = newFirstPage; i <= newFirstPage+9; i++) {
         pages.push(i)
@@ -56,7 +57,7 @@ const Users = () => {
 
     return (
 
-<>
+<div className={u.users}>
     <div>
         {loading === 'loading' && <CircularProgress/>}
     </div>
@@ -99,7 +100,7 @@ const Users = () => {
         setActive(newFirstPage+10)
         dispatch(GetUsersTC(count, newFirstPage+10))
     }}>NEXT</button>}
-</>
+</div>
     );
 };
 
