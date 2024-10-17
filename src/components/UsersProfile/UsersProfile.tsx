@@ -1,12 +1,14 @@
-import React, {useEffect} from "react";
-import s from "../Profile/Profile.module.css";
-import {useDispatch, useSelector} from "react-redux";
-import {DispatchActionType, RootStateType} from "../../state/store";
-import {getStatusTC, ProfileStateType, setCheckedUserTC} from "../../state/profile-reducer";
+import React from "react";
+import {useSelector} from "react-redux";
+import {RootStateType} from "../../state/store";
+import {ProfileStateType} from "../../state/profile-reducer";
 import {Redirect} from "react-router-dom";
 import {StatusType} from "../../state/app-reducer";
+import u from '../Users/Users.module.css'
+
 
 export type UserProfileType={
+    aboutMe:string | null
     userId: number|null
     lookingForAJob: boolean
     lookingForAJobDescription: string
@@ -36,12 +38,19 @@ export const UsersProfile = () =>{
         return <Redirect to={'/users'}/>
     else
         return (
-            <div>
+            <div className={u.userProfile}>
                 <img
                     src={user.profile.photos.small}
                     alt={'user ava'}/>
-                <div>{user.profile.fullName}</div>
                 <div>{user.status}</div>
+                <div className={u.usersInfo}>
+                    <div>{user.profile.fullName}</div>
+
+                    <div>{user.profile.aboutMe}</div>
+                    <div>{user.profile.lookingForAJob}</div>
+                    <div>{user.profile.lookingForAJobDescription}</div>
+                </div>
+
             </div>
         );
 };
